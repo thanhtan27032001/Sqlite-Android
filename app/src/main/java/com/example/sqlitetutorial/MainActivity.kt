@@ -2,6 +2,8 @@ package com.example.sqlitetutorial
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.example.sqlitetutorial.domain.Feed
+import com.example.sqlitetutorial.repository.FeedReaderRepository
 
 class MainActivity : AppCompatActivity() {
 
@@ -9,24 +11,22 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-//        testWriteDatabase()
+        testWriteDatabase()
         testReadDatabase()
     }
 
     private fun testWriteDatabase() {
-        val db = FeedReaderDbHelper(this)
-        db.insertNewFeed("Feed 1", "Sub title here")
-        db.insertNewFeed("Feed 2", "Sub title here")
-        db.insertNewFeed("Feed 3", "Sub title here")
-        db.insertNewFeed("Feed 4", "Sub title here")
-        db.insertNewFeed("Feed 5", "Sub title here")
+        FeedReaderRepository.addFeed(this, Feed("Feed 6", "Sub title here"))
+        FeedReaderRepository.addFeed(this, Feed("Feed 7", "Sub title here"))
+        FeedReaderRepository.addFeed(this, Feed("Feed 8", "Sub title here"))
+        FeedReaderRepository.addFeed(this, Feed("Feed 9", "Sub title here"))
+        FeedReaderRepository.addFeed(this, Feed("Feed 10", "Sub title here"))
     }
 
     private fun testReadDatabase() {
-        val db = FeedReaderDbHelper(this)
-        val cursor = db.getAllFeed()
-        while (cursor.moveToNext()) {
-            println(cursor.getString(1))
+        val feedList = FeedReaderRepository.getAllFeed(this)
+        feedList.forEach { feed ->
+            println(feed.title)
         }
     }
 }

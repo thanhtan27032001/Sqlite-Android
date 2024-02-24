@@ -1,11 +1,12 @@
-package com.example.sqlitetutorial
+package com.example.sqlitetutorial.dao
 
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
-import com.example.sqlitetutorial.FeedReaderContract.FeedEntry
+import com.example.sqlitetutorial.dao.FeedReaderContract.FeedEntry
+import com.example.sqlitetutorial.domain.Feed
 
 class FeedReaderDbHelper(context: Context): SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
 
@@ -33,12 +34,12 @@ class FeedReaderDbHelper(context: Context): SQLiteOpenHelper(context, DATABASE_N
         onCreate(db)
     }
 
-    fun insertNewFeed(title: String, subtitle: String): Boolean {
+    fun insertNewFeed(feed: Feed): Boolean {
         val db = this.writableDatabase
 
         val value = ContentValues()
-        value.put(FeedEntry.COLUMN_TITLE, title)
-        value.put(FeedEntry.COLUMN_SUBTITLE, subtitle)
+        value.put(FeedEntry.COLUMN_TITLE, feed.title)
+        value.put(FeedEntry.COLUMN_SUBTITLE, feed.subTitle)
 
         val newRowId = db?.insert(FeedEntry.TABLE_NAME, null, value)
 

@@ -1,4 +1,4 @@
-package com.example.sqlitetutorial
+package com.example.sqlitetutorial.dao
 
 import android.provider.BaseColumns
 
